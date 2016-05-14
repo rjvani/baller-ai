@@ -7,6 +7,9 @@ BBOX = (0,0,450,750)
 TARGET_COLOR = (255,38,15)
 TARGET_ROW = 260
 
+BALL_COLOR = (255,150,47)
+BALL_ROW = 670
+
 def main():
   start = time.time()
 
@@ -17,7 +20,13 @@ def main():
     row = map(tuple, list(im[TARGET_ROW]))
     hoopcenter = get_hoop(row)
 
+    for t in im[BALL_ROW]:
+      print t
+
+    showImage(im[BALL_ROW:BALL_ROW+20])
+
     print hoopcenter
+    break
 
 def get_hoop(row):
   try:
