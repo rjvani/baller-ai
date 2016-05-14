@@ -10,7 +10,6 @@ HOOP_ROW = 260
 
 BALL_COLOR = (255,150,47)
 BALL_ROW = 670
-#BALL_ROW = 660
 
 def main():
   start = time.time()
@@ -47,13 +46,15 @@ def main():
       y2 = BALL_ROW
 
       mouse.move(x2, y2)
-      mouse.toggle(True, 1)
       #time.sleep(0.1)
-      for y3 in range(y2, y1, -1):
+      for y3 in range(y2+40, y1-40, -1):
+        if y3 == y2:
+          mouse.toggle(True, 1)
         x3 = int(float(y3-y1)/(y2-y1)*(x2-x1)+x1)
         mouse.move(x3, y3)
-        time.sleep(0.0001)
-      mouse.toggle(False, 1)
+        if y3 == y1:
+          mouse.toggle(False, 1)
+        time.sleep(0.0004)
       time.sleep(2)
 
 
