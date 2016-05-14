@@ -16,26 +16,40 @@ def main():
   while True:
     # get numpy array
     im = numpy.asarray(pyscreenshot.grab(bbox=BBOX))
-    # this is the target location
-    row = map(tuple, list(im[TARGET_ROW]))
-    hoopcenter = get_hoop(row)
 
-    for t in im[BALL_ROW]:
-      print t
-
-    showImage(im[BALL_ROW:BALL_ROW+20])
+    # find the hoop location
+    try:
+      row = map(tuple, list(im[TARGET_ROW]))
+      hoopcenter = get_hoop(row)
+    except:
+      print 'could not find hoop'
+      continue
 
     print hoopcenter
-    break
+
+    # find the ball location
+    try:
+      row = map(tuple, list(im[BALL_ROW]))
+      ballcenter = get_ball(row)
+    except:
+      print 'could not find ball'
+      continue
+    
+    print ballcenter
+    print
+
+
+def get_ball(row):
+  left = row.index(BALL_COLOR)
+  right = len(row) - list(reversed(row)).index(BALL_COLOR)
+  ballcenter = (left + right) // 2
+  return ballcenter
 
 def get_hoop(row):
-  try:
-    left = row.index(TARGET_COLOR)
-    right = len(row) - list(reversed(row)).index(TARGET_COLOR)
-    hoopcenter = (left + right) // 2
-    return hoopcenter
-  except:
-    return "could not find hoop"
+  left = row.index(TARGET_COLOR)
+  right = len(row) - list(reversed(row)).index(TARGET_COLOR)
+  hoopcenter = (left + right) // 2
+  return hoopcenter
 
 def showImage(array):
     Image.fromarray(array).show()
