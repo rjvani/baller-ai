@@ -11,27 +11,22 @@ def main():
   start = time.time()
 
   while True:
-
     # get numpy array
     im = numpy.asarray(pyscreenshot.grab(bbox=BBOX))
-
     # this is the target location
     row = map(tuple, list(im[TARGET_ROW]))
-
-    hoopcenter = None
-    try:
-      left = row.index(TARGET_COLOR)
-      right = len(row) - list(reversed(row)).index(TARGET_COLOR)
-      hoopcenter = (left + right) // 2
-    except:
-      print('could not find hoop')
-
-    if hoopcenter is None:
-      continue
+    hoopcenter = get_hoop(row)
 
     print hoopcenter
 
-      
+def get_hoop(row):
+  try:
+    left = row.index(TARGET_COLOR)
+    right = len(row) - list(reversed(row)).index(TARGET_COLOR)
+    hoopcenter = (left + right) // 2
+    return hoopcenter
+  except:
+    return "could not find hoop"
 
 def showImage(array):
     Image.fromarray(array).show()
