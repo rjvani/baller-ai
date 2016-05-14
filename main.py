@@ -1,23 +1,40 @@
 import pyscreenshot
+from PIL import Image
 import time
+import numpy
+
+BBOX = (0,0,450,750)
+TARGET_COLOR = (255,38,15)
+TARGET_ROW = 260
 
 def main():
   start = time.time()
 
-  while time.time() - start < 10:
-    im = pyscreenshot.grab()
-    rgb_im = im.convert('RGB')
+  while True:
 
-    l = [ ]
+    # get numpy array
+    im = numpy.asarray(pyscreenshot.grab(bbox=BBOX))
+
+    # this is the target location
+    row = map(tuple, list(im[TARGET_ROW]))
+
+    hoopcenter = None
+    try:
+      left = row.index(TARGET_COLOR)
+      right = len(row) - list(reversed(row)).index(TARGET_COLOR)
+      hoopcenter = (left + right) // 2
+    except:
+      print('could not find hoop')
+
+    if hoopcenter is None:
+      continue
+
+    print hoopcenter
+
       
-    temp = time.time()
 
-    for x in range(400):
-      for y in range(900):
-        r, g, b = rgb_im.getpixel((x, y))
-        l.append((r, g, b))
-
-    print(time.time() - temp)
+def showImage(array):
+    Image.fromarray(array).show()
 
 if __name__ == "__main__":
   main()
