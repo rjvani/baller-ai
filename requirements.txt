@@ -1,0 +1,16 @@
+backports.shutil-get-terminal-size==1.0.0
+decorator==4.0.9
+EasyProcess==0.2.2
+entrypoint2==0.0.6
+ipython==4.2.0
+ipython-genutils==0.1.0
+pathlib2==2.1.0
+pexpect==4.0.1
+pickleshare==0.7.2
+Pillow==3.2.0
+ptyprocess==0.5.1
+pyscreenshot==0.4.1
+PyVirtualDisplay==0.2
+simplegeneric==0.8.1
+six==1.10.0
+traitlets==4.2.1
